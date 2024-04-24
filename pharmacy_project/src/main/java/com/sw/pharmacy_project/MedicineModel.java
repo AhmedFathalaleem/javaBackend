@@ -24,36 +24,59 @@ public class MedicineModel {
        meds.add(new Medicine(id, name, price, category));
         return true;
     }
-
-    public void updateMedicineName(Integer id, String name){
+  
+    public boolean UpdateMedicine(Integer id, String name, Integer price, String category){
         for(int i = 0; i < meds.size(); i++){
             if(id == this.meds.get(i).getId()){
                 this.meds.get(i).setName(name);
-                
+                this.meds.get(i).setPrice(price);
+                this.meds.get(i).setCategory(category);
+                return true;
             }
         }
+        return false;
     }
 
-    public void updateMedicinePrice(Integer id, Integer price){
+    public boolean UpdateMedicineName(Integer id, String name){
+        for(int i = 0; i < meds.size(); i++){
+            if(id == this.meds.get(i).getId()){
+                this.meds.get(i).setName(name);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean UpdateMedicinePrice(Integer id, Integer price){
         for(int i = 0; i < meds.size(); i++){
             if(id == this.meds.get(i).getId()){
                 this.meds.get(i).setPrice(price);
-                
+                return true;
             }
         }
+        return false;
     }
 
 
-    public void updateMedicineCategory(Integer id, String category){
+    public boolean UpdateMedicineCategory(Integer id, String category){
         for(int i = 0; i < meds.size(); i++){
             if(id == this.meds.get(i).getId()){
                 this.meds.get(i).setCategory(category);
-                
+                return true;
             }
         }
+        return false;
     }
 
-
+    public boolean DeleteMedicine(Integer id){
+        for(int i=0; i< this.meds.size(); i++){
+            if(this.meds.get(i).getId() == id){
+                this.meds.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
     
 
 
