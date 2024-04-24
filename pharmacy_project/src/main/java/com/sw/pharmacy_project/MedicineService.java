@@ -16,6 +16,11 @@ public class MedicineService {
         return meds.GetMedicine();
     }
 
+    public boolean AddMedicine(String id, String name, String price, String category){
+        meds.AddMedicine(Integer.valueOf(id), name, Integer.valueOf(price), category);
+        return true;
+    }
+
 
 
 }

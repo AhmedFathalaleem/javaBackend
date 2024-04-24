@@ -20,6 +20,40 @@ public class MedicineModel {
         return this.meds;
     }
 
+    public boolean AddMedicine(Integer id, String name, Integer price, String category){
+       meds.add(new Medicine(id, name, price, category));
+        return true;
+    }
+
+    public void updateMedicineName(Integer id, String name){
+        for(int i = 0; i < meds.size(); i++){
+            if(id == this.meds.get(i).getId()){
+                this.meds.get(i).setName(name);
+                
+            }
+        }
+    }
+
+    public void updateMedicinePrice(Integer id, Integer price){
+        for(int i = 0; i < meds.size(); i++){
+            if(id == this.meds.get(i).getId()){
+                this.meds.get(i).setPrice(price);
+                
+            }
+        }
+    }
+
+
+    public void updateMedicineCategory(Integer id, String category){
+        for(int i = 0; i < meds.size(); i++){
+            if(id == this.meds.get(i).getId()){
+                this.meds.get(i).setCategory(category);
+                
+            }
+        }
+    }
+
+
     
 
 
