@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
 
 @RestController
 @RequestMapping("/meds")
@@ -24,9 +28,20 @@ public class MedicineController {
 
     @PostMapping("/AddMedicine")
     public boolean AddMedicine(@RequestBody Map<String, String> request){
-        meds.AddMedicine(request.get("id"), request.get("name"), request.get("price"), request.get("category"));
-        return true;
+        return meds.AddMedicine(request.get("id"), request.get("name"), request.get("price"), request.get("category"));
+        
     }
+
+    @PutMapping("/UpdateMedicine")
+    public boolean UpdateMedicine(@RequestBody Map<String, String> request) {
+        return meds.UpdateMedicine(request.get("id"), request.get("name"), request.get("price"), request.get("category"));
+    }
+
+    @DeleteMapping("/DeleteMedicine")
+    public boolean DeleteMedicine(@RequestBody Map<String,String> request){
+        return meds.deleteTopic(request.get("id"));
+    }
+
 
     
 

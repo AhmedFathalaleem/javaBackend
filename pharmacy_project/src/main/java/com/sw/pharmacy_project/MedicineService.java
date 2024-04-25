@@ -21,6 +21,13 @@ public class MedicineService {
         return true;
     }
 
+    public boolean UpdateMedicine(String id, String name, String price, String category){
+       return meds.UpdateMedicine(Integer.valueOf(id), name, Integer.valueOf(price), category);
+    } 
+
+    public boolean deleteTopic(String id){
+        return meds.DeleteMedicine(Integer.valueOf(id));
+    }
 
 
 }
