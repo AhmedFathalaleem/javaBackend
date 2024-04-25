@@ -26,6 +26,11 @@ public class MedicineController {
         return meds.GetMedicine();
     }
 
+    @GetMapping("/GetMedicineById/{id}")
+    public Medicine GetMedicineById(@PathVariable Integer id){
+        return meds.GetMedicineById(id);
+    }
+
     @PostMapping("/AddMedicine")
     public boolean AddMedicine(@RequestBody Map<String, String> request){
         return meds.AddMedicine(request.get("id"), request.get("name"), request.get("price"), request.get("category"));
@@ -37,9 +42,10 @@ public class MedicineController {
         return meds.UpdateMedicine(request.get("id"), request.get("name"), request.get("price"), request.get("category"));
     }
 
-    @DeleteMapping("/DeleteMedicine")
-    public boolean DeleteMedicine(@RequestBody Map<String,String> request){
-        return meds.deleteTopic(request.get("id"));
+    @DeleteMapping("/DeleteMedicine/{id}")
+    
+    public boolean DeleteMedicine(@PathVariable Integer id){
+        return meds.DeleteMedicine(id);
     }
 
 

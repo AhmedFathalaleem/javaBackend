@@ -20,6 +20,10 @@ public class MedicineModel {
         return this.meds;
     }
 
+    public Medicine GetMedicineById(Integer id){
+        return meds.get(id-1);
+    }
+
     public boolean AddMedicine(Integer id, String name, Integer price, String category){
        meds.add(new Medicine(id, name, price, category));
         return true;

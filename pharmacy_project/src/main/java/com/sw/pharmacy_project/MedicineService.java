@@ -16,6 +16,10 @@ public class MedicineService {
         return meds.GetMedicine();
     }
 
+    public Medicine GetMedicineById(Integer id){
+        return meds.GetMedicineById(id);
+    }
+
     public boolean AddMedicine(String id, String name, String price, String category){
         meds.AddMedicine(Integer.valueOf(id), name, Integer.valueOf(price), category);
         return true;
@@ -25,8 +29,8 @@ public class MedicineService {
        return meds.UpdateMedicine(Integer.valueOf(id), name, Integer.valueOf(price), category);
     } 
 
-    public boolean deleteTopic(String id){
-        return meds.DeleteMedicine(Integer.valueOf(id));
+    public boolean DeleteMedicine(Integer id){
+        return meds.DeleteMedicine(id);
     }
 
 
