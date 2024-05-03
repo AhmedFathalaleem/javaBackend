@@ -1,87 +1,77 @@
 package com.sw.pharmacy_project;
 
-import java.util.ArrayList;
-import java.util.List;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-import org.springframework.stereotype.Component;
-
-@Component
+@Entity
+@Table(name = "javaMedicine")
 public class MedicineModel {
-
-    
-    public List <Medicine> meds = new ArrayList<>();
-
-    public MedicineModel(){
-        meds.add(new Medicine(1, "CovidCure", 5000, "Covid"));
-        meds.add(new Medicine(2, "CancerCure", 50000, "Cancer"));
-    }
-
-    public List<Medicine> GetMedicine(){
-        return this.meds;
-    }
-
-    public Medicine GetMedicineById(Integer id){
-        return meds.get(id-1);
-    }
-
-    public boolean AddMedicine(Integer id, String name, Integer price, String category){
-       meds.add(new Medicine(id, name, price, category));
-        return true;
-    }
-  
-    public boolean UpdateMedicine(Integer id, String name, Integer price, String category){
-        for(int i = 0; i < meds.size(); i++){
-            if(id == this.meds.get(i).getId()){
-                this.meds.get(i).setName(name);
-                this.meds.get(i).setPrice(price);
-                this.meds.get(i).setCategory(category);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean UpdateMedicineName(Integer id, String name){
-        for(int i = 0; i < meds.size(); i++){
-            if(id == this.meds.get(i).getId()){
-                this.meds.get(i).setName(name);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean UpdateMedicinePrice(Integer id, Integer price){
-        for(int i = 0; i < meds.size(); i++){
-            if(id == this.meds.get(i).getId()){
-                this.meds.get(i).setPrice(price);
-                return true;
-            }
-        }
-        return false;
-    }
-
-
-    public boolean UpdateMedicineCategory(Integer id, String category){
-        for(int i = 0; i < meds.size(); i++){
-            if(id == this.meds.get(i).getId()){
-                this.meds.get(i).setCategory(category);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public boolean DeleteMedicine(Integer id){
-        for(int i=0; i< this.meds.size(); i++){
-            if(this.meds.get(i).getId() == id){
-                this.meds.remove(i);
-                return true;
-            }
-        }
-        return false;
-    }
     
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "price")
+    private Integer price;
+    @Column(name = "category")
+    private String category;
+
+
+    
+
+
+  public MedicineModel() {
+
+    }
+
+
+public MedicineModel(Integer id, String name, Integer price, String category) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.category = category;
+    }
+
+
+    public Integer getId() {
+        return id;
+    }
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public Integer getPrice() {
+        return price;
+    }
+    public void setPrice(Integer price) {
+        this.price = price;
+    }
+    public String getCategory() {
+        return category;
+    }
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+
+    @Override
+    public String toString() {
+        return "Medicine [id=" + id + ", name=" + name + ", price=" + price + ", category=" + category + "]";
+    }
+
+    
+    
 
 }

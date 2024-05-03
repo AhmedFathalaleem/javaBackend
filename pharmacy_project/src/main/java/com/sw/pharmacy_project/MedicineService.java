@@ -1,37 +1,87 @@
 package com.sw.pharmacy_project;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
+
+import com.sw.pharmacy_project.repository.MedicineRepository;
 
 @Service
 public class MedicineService {
-    
+
     @Autowired
-    private MedicineModel meds;
-
+    private MedicineRepository MedicineRepository;
     
-    public List<Medicine> GetMedicine(){
-        return meds.GetMedicine();
+    public List <MedicineModel> meds = new ArrayList<>();
+
+    public MedicineService(){
+        meds.add(new MedicineModel(1, "CovidCure", 5000, "Covid"));
+        meds.add(new MedicineModel(2, "CancerCure", 50000, "Cancer"));
     }
 
-    public Medicine GetMedicineById(Integer id){
-        return meds.GetMedicineById(id);
+    public List<MedicineModel> GetMedicine(){
+        return MedicineRepository.findAll();
     }
 
-    public boolean AddMedicine(String id, String name, String price, String category){
-        meds.AddMedicine(Integer.valueOf(id), name, Integer.valueOf(price), category);
-        return true;
+    public MedicineModel GetMedicineById(Integer id){
+        return MedicineRepository.findById(id).get();
     }
 
-    public boolean UpdateMedicine(String id, String name, String price, String category){
-       return meds.UpdateMedicine(Integer.valueOf(id), name, Integer.valueOf(price), category);
-    } 
+ 
+    public MedicineModel AddMedicine(MedicineModel medicine){
+        return MedicineRepository.save(medicine);
+    }
+  
+    public MedicineModel UpdateMedicine(MedicineModel medicine){
+
+        MedicineModel tempMedicine = MedicineRepository.findById(medicine.getId()).get();
+        tempMedicine.setName(medicine.getName());
+        tempMedicine.setPrice(medicine.getPrice());
+        tempMedicine.setCategory(medicine.getCategory());
+        MedicineRepository.save(tempMedicine);
+
+        return tempMedicine;
+    }
+
+    public boolean UpdateMedicineName(Integer id, String name){
+        for(int i = 0; i < meds.size(); i++){
+            if(id == this.meds.get(i).getId()){
+                this.meds.get(i).setName(name);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean UpdateMedicinePrice(Integer id, Integer price){
+        for(int i = 0; i < meds.size(); i++){
+            if(id == this.meds.get(i).getId()){
+                this.meds.get(i).setPrice(price);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean UpdateMedicineCategory(Integer id, String category){
+        for(int i = 0; i < meds.size(); i++){
+            if(id == this.meds.get(i).getId()){
+                this.meds.get(i).setCategory(category);
+                return true;
+            }
+        }
+        return false;
+    }
 
     public boolean DeleteMedicine(Integer id){
-        return meds.DeleteMedicine(id);
+        MedicineRepository.deleteById(id);
+        return false;
     }
+    
 
 
 }
