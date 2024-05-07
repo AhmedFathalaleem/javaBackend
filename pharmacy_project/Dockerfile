@@ -1,11 +1,14 @@
-FROM openjdk:22-jdk-alpine
+# Use a base image with Java 22 installed
+FROM openjdk:17-jdk-alpine
 
-WORKDIR /pharmacy_project
+# Set the working directory inside the container
+WORKDIR /app
 
-VOLUME /tmp
+# Copy the compiled JAR file into the container
+COPY target/pharmacy_project-0.0.1-SNAPSHOT.jar app.jar
 
-COPY target/pharmacy_project-0.0.1-SNAPSHOT.jar /pharmacy_project/pharmacy_project.jar
+# Expose the port that your Spring Boot application runs on
+EXPOSE 8080
 
-EXPOSE 6001
-
-ENTRYPOINT ["java", "-jar", "pharmacy_project.jar"]
+# Specify the command to run your Spring Boot application
+CMD ["java", "-jar", "app.jar"]

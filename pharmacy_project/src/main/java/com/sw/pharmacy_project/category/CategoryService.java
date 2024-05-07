@@ -11,26 +11,31 @@ import org.springframework.stereotype.Service;
 public class CategoryService {
     
     @Autowired
-    private CategoryModel CategoryModel;
+    private CategoryRepository CategoryRepository;
 
-    public List<Category> GetCategory(){
-        return CategoryModel.GetCategory();
+    public List<CategoryModel> GetCategory(){
+        return CategoryRepository.findAll();
     }
 
-    public Category GetCategoryById(Integer id){
-        return CategoryModel.GetCategoryById(id);
+    public CategoryModel GetCategoryById(Integer id){
+        return CategoryRepository.findById(id).get();
     }
 
-    public boolean AddCategory(String id, String categoryName){
-        return CategoryModel.AddCategory(Integer.valueOf(id), categoryName);
+    public CategoryModel AddCategory(CategoryModel categoryModel){
+        return CategoryRepository.save(categoryModel);
     }
 
-    public boolean UpdateCategory(String id, String categoryName){
-        return CategoryModel.UpdateCategory(Integer.valueOf(id), categoryName);
+
+ 
+    public CategoryModel UpdateCategory(Integer id, CategoryModel categoryModel){
+        CategoryModel temp = CategoryRepository.findById(id).orElse(null);
+        temp.setCategoryName(categoryModel.getCategoryName());
+        return CategoryRepository.save(temp);
     }
 
     public boolean DeleteCategory(Integer id){
-        return CategoryModel.DeleteCategory(id);
+        CategoryRepository.deleteById(id);
+        return true;
     }
 
 

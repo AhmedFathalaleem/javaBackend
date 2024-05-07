@@ -1,7 +1,7 @@
 package com.sw.pharmacy_project.category;
 
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,24 +23,25 @@ public class CategoryController {
     private CategoryService CategoryService;
 
     @GetMapping("/GetCategories")
-    public List<Category> GetCategory(){
+    public List<CategoryModel> GetCategory(){
         return CategoryService.GetCategory();
     }
 
     @GetMapping("/GetCategoryById/{id}")
-    public Category GetPatientById(@PathVariable Integer id){
+    public CategoryModel GetPatientById(@PathVariable Integer id){
         return CategoryService.GetCategoryById(id);
     }
 
 
     @PostMapping("/AddCategory")
-    public boolean AddCategory(@RequestBody Map<String, String> request){
-        return CategoryService.AddCategory(request.get("id"), request.get("categoryName"));
+    public CategoryModel AddCategory(@RequestBody CategoryModel categoryModel){
+        return CategoryService.AddCategory(categoryModel);
     }
 
-    @PutMapping("/UpdateCategory")
-    public boolean UpdateCategory(@RequestBody Map<String, String> request){
-        return CategoryService.UpdateCategory(request.get("id"), request.get("categoryName"));
+    @PutMapping("/UpdateCategory/{id}")
+    public boolean UpdateCategory(@RequestBody CategoryModel categoryModel, @PathVariable Integer id){
+        CategoryService.UpdateCategory(id, categoryModel);
+        return true;
     }
 
     @DeleteMapping("/DeleteCategory/{id}")

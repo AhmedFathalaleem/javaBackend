@@ -22,23 +22,24 @@ public class PatientController {
 
 
     @GetMapping("/GetPatients")
-    public List<Patient> GetPatient(){
+    public List<PatientModel> GetPatient(){
         return PatientService.GetPatient();
     }
 
     @GetMapping("/GetPatientById/{id}")
-    public Patient GetPatientById(@PathVariable Integer id){
+    public PatientModel GetPatientById(@PathVariable Integer id){
         return PatientService.GetPatientById(id);
     }
 
     @PostMapping("/AddPatient")
-    public boolean AddPatient(@RequestBody Map<String, String> request){
-        return PatientService.AddPatient(request.get("id"), request.get("fName"), request.get("lName"));
+    public PatientModel AddPatient(@RequestBody PatientModel patientModel){
+        return PatientService.AddPatient(patientModel);
     }
 
     @PutMapping("/UpdatePatient")
-    public boolean UpdatePatient(@RequestBody Map<String, String> request){
-        return PatientService.UpdatePatient(request.get("id"), request.get("fName"), request.get("lName"));
+    public PatientModel UpdatePatient(@RequestBody PatientModel patientModel, Integer id){
+       return PatientService.UpdatePatient(id, patientModel);
+        
     }
 
     @DeleteMapping("/DeletePatient/{id}")
