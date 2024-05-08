@@ -1,59 +1,55 @@
 package com.sw.pharmacy_project.patient;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name = "javaPatient")
+import org.springframework.stereotype.Component;
+
+
+@Component
 public class PatientModel {
-
-    @Id
-    @Column(name = "id")
-    private Integer Id;
-    @Column (name = "fName")
-    private String fName;
-    @Column (name = "lName")
-    private String lName;
-
-
-    public PatientModel(Integer id, String fName, String lName) {
-        Id = id;
-        this.fName = fName;
-        this.lName = lName;
-    }
-
-
-    public Integer getId() {
-        return Id;
-    }
-
-
-    public void setId(Integer id) {
-        Id = id;
-    }
-
-
-    public String getfName() {
-        return fName;
-    }
-
-
-    public void setfName(String fName) {
-        this.fName = fName;
-    }
-
-
-    public String getlName() {
-        return lName;
-    }
-
-
-    public void setlName(String lName) {
-        this.lName = lName;
-    }
     
-    
-    
+   public List <Patient> patients = new ArrayList<>();
+
+   public PatientModel(){
+    patients.add(new Patient(1, "Ross", "Geller"));
+    patients.add(new Patient(2, "Chandler", "Bing"));
+   }
+
+   public List<Patient> GetPatient(){
+        return this.patients;
+    }
+
+    public Patient GetPatientById(Integer id){
+        return patients.get(id-1);
+    }
+
+    public boolean AddPatient(Integer id, String fName, String lName){
+       patients.add(new Patient(id, fName, lName));
+        return true;
+    }
+  
+    public boolean UpdatePatient(Integer id, String fName, String lName){
+        for(int i = 0; i < patients.size(); i++){
+            if(id == this.patients.get(i).getId()){
+                this.patients.get(i).setfName(fName);
+                this.patients.get(i).setlName(lName);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean DeletePatient(Integer id){
+        for(int i=0; i< this.patients.size(); i++){
+            if(this.patients.get(i).getId() == id){
+                this.patients.remove(i);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 }

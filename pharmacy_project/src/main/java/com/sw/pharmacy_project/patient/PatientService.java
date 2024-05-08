@@ -9,30 +9,26 @@ import org.springframework.stereotype.Service;
 public class PatientService {
     
     @Autowired
-    private PatientRepository PatientRepository;
+    private PatientModel PatientModel;
 
-    public List<PatientModel> GetPatient(){
-        return PatientRepository.findAll();
+    public List<Patient> GetPatient(){
+        return PatientModel.GetPatient();
     }
 
-    public PatientModel GetPatientById(Integer id){
-        return PatientRepository.findById(id).get();
+    public Patient GetPatientById(Integer id){
+        return PatientModel.GetPatientById(id);
     }
 
-    public PatientModel AddPatient(PatientModel patientModel){
-        return PatientRepository.save(patientModel);
+    public boolean AddPatient(String id, String fName, String lName){
+        return PatientModel.AddPatient(Integer.valueOf(id), fName, lName);
     }
 
-    public PatientModel UpdatePatient(Integer id,PatientModel patientModel){
-        PatientModel temp = PatientRepository.findById(id).orElse(null);
-        temp.setfName(patientModel.getfName());
-        temp.setlName(patientModel.getlName());
-        return PatientRepository.save(temp);
+    public boolean UpdatePatient(String id, String fName, String lName){
+        return PatientModel.UpdatePatient(Integer.valueOf(id), fName, lName);
     }
 
     public boolean DeletePatient(Integer id){
-        PatientRepository.deleteById(id);
-        return true;
+        return PatientModel.DeletePatient(id);
     }
     
 }
